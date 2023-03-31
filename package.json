@@ -1,0 +1,23 @@
+{
+  "name": "ecom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "author": "MD Ripon Islam",
+  "license": "ISC",
+  "dependencies": {
+    "@neo4j/graphql": "^3.17.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.6.0",
+    "neo4j-driver": "^5.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
