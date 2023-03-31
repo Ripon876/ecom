@@ -11,7 +11,7 @@ const { addCustomer, getCustomers } = require("../resolvers/user");
 const { ProductType } = require("./product");
 
 const CustomerType = new GraphQLObjectType({
-  name: "User",
+  name: "Customer",
   fields: () => ({
     name: { type: GraphQLString },
     email: { type: GraphQLString },
@@ -22,24 +22,6 @@ const CustomerType = new GraphQLObjectType({
     },
   }),
 });
-
-// const UserType = new GraphQLObjectType({
-//   name: "User",
-//   fields: () => {
-//     let type = { type: GraphQLString };
-//     return {
-//       name: { type: GraphQLString },
-//       email: { type: GraphQLString },
-//       type,
-//       ...(type === "seller"
-//         ? {
-//             vendor: { type: GraphQLString },
-//             products: { type: GraphQLString },
-//           }
-//         : {}),
-//     };
-//   },
-// });
 
 const CustomerQuery = {
   customers: {
