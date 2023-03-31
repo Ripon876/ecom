@@ -1,1 +1,1 @@
-# simple crud app with neo4j and graphql
+#  Ecommerce GraphQl API with neo4j and graphql
