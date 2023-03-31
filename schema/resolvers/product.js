@@ -1,5 +1,5 @@
 const { session } = require("neo4j-driver");
-const { driver } = require("../db/db");
+const { driver } = require("../../db/db");
 
 module.exports = {
   getProducts: async (parent) => {
@@ -78,14 +78,10 @@ module.exports = {
         RETURN true as success
         `);
 
-      return {
-        success: result.records[0].get("success"),
-      };
+      return result.records[0].get("success");
     } catch (err) {
       console.log(err);
-      return {
-        success: false,
-      };
+      return false;
     } finally {
       session.close();
     }
