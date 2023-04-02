@@ -44,4 +44,15 @@ module.exports = {
       session.close();
     }
   },
+  getCustomerOrders: async (customer) => {
+    const session = driver.session();
+    try {
+      return [];
+    } catch (err) {
+      console.log(err);
+      return null;
+    } finally {
+      session.close();
+    }
+  },
 };

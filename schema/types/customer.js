@@ -7,7 +7,11 @@ const {
   GraphQLObjectType,
 } = require("graphql");
 
-const { addCustomer, getCustomers } = require("../resolvers/user");
+const {
+  addCustomer,
+  getCustomers,
+  getCustomerOrders,
+} = require("../resolvers/customer");
 const { ProductType } = require("./product");
 
 const CustomerType = new GraphQLObjectType({
@@ -18,7 +22,7 @@ const CustomerType = new GraphQLObjectType({
     image: { type: GraphQLString },
     orders: {
       type: new GraphQLList(ProductType),
-      resolve: () => {},
+      resolve: getCustomerOrders,
     },
   }),
 });
@@ -36,6 +40,7 @@ const CustomerMutation = {
     args: {
       name: { type: GraphQLString },
       email: { type: GraphQLString },
+      iamge: { type: GraphQLString },
     },
     resolve: addCustomer,
   },
