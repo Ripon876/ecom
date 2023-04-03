@@ -24,6 +24,33 @@ module.exports = {
       session.close();
     }
   },
+  updateCustomer: async (_, args) => {
+    const session = driver.session();
+    console.log("-process started");
+    try {
+      const { id, ...props } = args;
+      const result = await session.run(
+        `
+          MATCH (c:Customer)
+          WHERE ID(c) = ${id}
+          SET c += $props
+          RETURN c
+        `,
+        { props }
+      );
+
+      console.log("-customer updated");
+      const customer = result.records[0].get("c");
+      return customer.properties;
+    } catch (err) {
+      console.log(err);
+      return null;
+    } finally {
+      session.close();
+      console.log("-session closed");
+    }
+  },
+
   getCustomers: async () => {
     const session = driver.session();
     try {

@@ -11,6 +11,7 @@ const {
   addCustomer,
   getCustomers,
   getCustomerOrders,
+  updateCustomer,
 } = require("../resolvers/customer");
 const { ProductType } = require("./product");
 
@@ -43,6 +44,16 @@ const CustomerMutation = {
       iamge: { type: GraphQLString },
     },
     resolve: addCustomer,
+  },
+  updateCustomer: {
+    type: CustomerType,
+    args: {
+      id: { type: new GraphQLNonNull(GraphQLID) },
+      name: { type: GraphQLString },
+      email: { type: GraphQLString },
+      image: { type: GraphQLString },
+    },
+    resolve: updateCustomer,
   },
 };
 

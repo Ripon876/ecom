@@ -5,7 +5,7 @@
 - [ ] Customer
 
   - [x] Add Customer
-  - [ ] Update Customer
+  - [X] Update Customer
   - [ ] Delete Customer
 
 - [ ] Seller
