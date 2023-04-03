@@ -4,20 +4,19 @@ module.exports = {
   addCustomer: async (_, args) => {
     const session = driver.session();
     try {
-      args.type = "seller";
       const props = Object.keys(args)
         .map((key) => `${key}: ${"$" + key}`)
         .join(", ");
 
       const result = await session.run(
-        `CREATE (u:User {${props}}) RETURN u`,
+        `CREATE (c:Customer {${props}}) RETURN c`,
         args
       );
       if (result.records.length === 0) {
         return null;
       }
-      const user = result.records[0].get("u");
-      return user.properties;
+      const customer = result.records[0].get("c");
+      return customer.properties;
     } catch (err) {
       console.log(err);
       return null;
@@ -28,15 +27,15 @@ module.exports = {
   getCustomers: async () => {
     const session = driver.session();
     try {
-      const result = await session.run("MATCH (u:User) RETURN u");
+      const result = await session.run("MATCH (c:Customer) RETURN c");
 
       if (result.records.length === 0) {
         return null;
       }
-      const users = result.records.map((record) => {
-        return record.get("u").properties;
+      const customers = result.records.map((record) => {
+        return record.get("c").properties;
       });
-      return users;
+      return customers;
     } catch (err) {
       console.log(err);
       return null;

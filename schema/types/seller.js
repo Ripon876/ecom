@@ -25,7 +25,7 @@ const SellerType = new GraphQLObjectType({
 });
 
 const SellerQuery = {
-  getSellers: {
+  sellers: {
     type: new GraphQLList(SellerType),
     resolve: getSellers,
   },

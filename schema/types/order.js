@@ -16,7 +16,6 @@ const {
   getOrders,
   addOrder,
 } = require("../resolvers/order");
-const { ProductType } = require("./product");
 
 const OrderType = new GraphQLObjectType({
   name: "Order",
@@ -40,7 +39,7 @@ const OrderType = new GraphQLObjectType({
 });
 
 const OrderQuery = {
-  getOrders: {
+  orders: {
     type: new GraphQLList(OrderType),
     resolve: getOrders,
   },
