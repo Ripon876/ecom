@@ -3,12 +3,14 @@ const {
   GraphQLString,
   GraphQLList,
   GraphQLObjectType,
+  GraphQLNonNull,
 } = require("graphql");
 const { ProductType } = require("./product");
 const {
   getSellers,
   getSellerProducts,
   addSeller,
+  updateSeller,
 } = require("../resolvers/seller");
 
 const SellerType = new GraphQLObjectType({
@@ -40,6 +42,16 @@ const SellerMutation = {
       image: { type: GraphQLString },
     },
     resolve: addSeller,
+  },
+  updateSeller: {
+    type: SellerType,
+    args: {
+      id: { type: new GraphQLNonNull(GraphQLID) },
+      name: { type: GraphQLString },
+      email: { type: GraphQLString },
+      image: { type: GraphQLString },
+    },
+    resolve: updateSeller,
   },
 };
 

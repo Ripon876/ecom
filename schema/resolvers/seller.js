@@ -30,4 +30,29 @@ module.exports = {
       console.log("-session closed");
     }
   },
+  updateSeller: async (_, args) => {
+    console.log("-process started");
+    const session = driver.session();
+    try {
+      const { id, ...props } = args;
+      const result = await session.run(
+        `
+        MATCH (s:Seller)
+        WHERE ID(s) = ${id}
+        SET s += $props
+        RETURN s
+        `,
+        { props }
+      );
+      console.log("-seller updated");
+      const seller = result.records[0].get("s");
+      return seller.properties;
+    } catch (err) {
+      console.log(err);
+      return null;
+    } finally {
+      session.close();
+      console.log("-session closed");
+    }
+  },
 };
