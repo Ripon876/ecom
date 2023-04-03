@@ -17,8 +17,8 @@
 - [ ] Product
 
   - [x] Add Product
-  - [ ] Update Product
-  - [ ] Delete Product
+  - [x] Update Product
+  - [x] Delete Product
 
 - [ ] Order
   - [ ] Add Order
