@@ -12,7 +12,7 @@
 
   - [x] Add Seller
   - [x] Update Seller
-  - [ ] Delete Seller
+  - [x] Delete Seller
 
 - [ ] Product
 

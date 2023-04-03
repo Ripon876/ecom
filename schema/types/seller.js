@@ -4,6 +4,7 @@ const {
   GraphQLList,
   GraphQLObjectType,
   GraphQLNonNull,
+  GraphQLBoolean,
 } = require("graphql");
 const { ProductType } = require("./product");
 const {
@@ -11,6 +12,7 @@ const {
   getSellerProducts,
   addSeller,
   updateSeller,
+  deleteSeller,
 } = require("../resolvers/seller");
 
 const SellerType = new GraphQLObjectType({
@@ -52,6 +54,13 @@ const SellerMutation = {
       image: { type: GraphQLString },
     },
     resolve: updateSeller,
+  },
+  deleteSeller: {
+    type: GraphQLBoolean,
+    args: {
+      id: { type: new GraphQLNonNull(GraphQLID) },
+    },
+    resolve: deleteSeller,
   },
 };
 
