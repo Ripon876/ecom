@@ -7,7 +7,6 @@
   - [x] Add Customer
   - [ ] Update Customer
   - [ ] Delete Customer
-  - [ ] Order Product
 
 - [ ] Seller
 
@@ -16,6 +15,11 @@
   - [ ] Delete Seller
 
 - [ ] Product
+
   - [x] Add Product
   - [ ] Update Product
   - [ ] Delete Product
+
+- [ ] Order
+  - [ ] Add Order
+  - [ ] Delete Order
