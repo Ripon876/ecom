@@ -50,7 +50,31 @@ module.exports = {
       console.log("-session closed");
     }
   },
+  deleteCustomer: async (_, args) => {
+    console.log("-process started");
+    const session = driver.session();
 
+    try {
+      const { id } = args;
+      const result = await session.run(
+        `
+        MATCH (c:Customer)
+        WHERE ID(c) = ${id}
+        DETACH DELETE c
+        RETURN true as success
+        `
+      );
+      console.log("-customer deleted");
+      const success = result.records[0].get("success");
+      return success;
+    } catch (err) {
+      console.log(err);
+      return null;
+    } finally {
+      session.close();
+      console.log("-session closed");
+    }
+  },
   getCustomers: async () => {
     const session = driver.session();
     try {
