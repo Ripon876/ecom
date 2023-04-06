@@ -6,6 +6,7 @@ const {
   GraphQLBoolean,
   GraphQLList,
   GraphQLNonNull,
+  GraphQLInt,
 } = require("graphql");
 
 const {
@@ -52,7 +53,7 @@ const ProductMutation = {
       title: { type: GraphQLString },
       image: { type: GraphQLString },
       price: { type: GraphQLFloat },
-      discount: { type: GraphQLFloat },
+      discount: { type: GraphQLInt },
     },
     resolve: updateProduct,
   },

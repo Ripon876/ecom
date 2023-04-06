@@ -4,6 +4,7 @@ const {
   GraphQLString,
   GraphQLList,
   GraphQLObjectType,
+  GraphQLNonNull,
 } = require("graphql");
 
 const { CustomerType } = require("./customer");
@@ -25,10 +26,6 @@ const OrderType = new GraphQLObjectType({
       type: CustomerType,
       resolve: getCustomer,
     },
-    seller: {
-      type: SellerType,
-      resolve: getSeller,
-    },
     product: {
       type: ProductType,
       resolve: getProduct,
@@ -49,9 +46,8 @@ const OrderMutation = {
   addOrder: {
     type: OrderType,
     args: {
-      customer: { type: GraphQLString },
-      seller: { type: GraphQLString },
-      product: { type: GraphQLString },
+      customer: { type: new GraphQLNonNull(GraphQLID) },
+      product: { type: new GraphQLNonNull(GraphQLID) },
     },
     resolve: addOrder,
   },

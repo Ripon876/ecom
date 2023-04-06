@@ -18,6 +18,7 @@
     "express-graphql": "^0.12.0",
     "graphql": "^16.6.0",
     "graphql-tools": "^8.3.19",
+    "nanoid": "^3.0.0",
     "neo4j-driver": "^5.6.0"
   },
   "devDependencies": {
