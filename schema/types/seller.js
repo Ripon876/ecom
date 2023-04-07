@@ -6,7 +6,7 @@ const {
   GraphQLNonNull,
   GraphQLBoolean,
 } = require("graphql");
-const { ProductType } = require("./product");
+
 const {
   getSellers,
   getSellerProducts,
@@ -17,15 +17,18 @@ const {
 
 const SellerType = new GraphQLObjectType({
   name: "Seller",
-  fields: () => ({
-    name: { type: GraphQLString },
-    email: { type: GraphQLString },
-    image: { type: GraphQLString },
-    products: {
-      type: new GraphQLList(ProductType),
-      resolve: getSellerProducts,
-    },
-  }),
+  fields: () => {
+    const { ProductType } = require("./product");
+    return {
+      name: { type: GraphQLString },
+      email: { type: GraphQLString },
+      image: { type: GraphQLString },
+      products: {
+        type: new GraphQLList(ProductType),
+        resolve: getSellerProducts,
+      },
+    };
+  },
 });
 
 const SellerQuery = {

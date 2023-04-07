@@ -16,14 +16,23 @@ const {
   deleteProduct,
 } = require("../resolvers/product");
 
+const { getSeller } = require("../resolvers/product");
+
 const ProductType = new GraphQLObjectType({
   name: "Product",
-  fields: () => ({
-    title: { type: GraphQLString },
-    image: { type: GraphQLString },
-    price: { type: GraphQLFloat },
-    discount: { type: GraphQLFloat },
-  }),
+  fields: () => {
+    const { SellerType } = require("./seller");
+    return {
+      title: { type: GraphQLString },
+      image: { type: GraphQLString },
+      price: { type: GraphQLFloat },
+      discount: { type: GraphQLFloat },
+      seller: {
+        type: SellerType,
+        resolve: getSeller,
+      },
+    };
+  },
 });
 
 // queries

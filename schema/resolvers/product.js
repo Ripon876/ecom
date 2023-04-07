@@ -86,4 +86,26 @@ module.exports = {
       session.close();
     }
   },
+  getSeller: async (product) => {
+    const session = driver.session();
+    try {
+      const result = await session.run(
+        `
+        MATCH (s:Seller)
+        WHERE ID(s) = ${product.seller}
+        RETURN s
+        `
+      );
+      if (result.records.length === 0) {
+        return null;
+      }
+
+      return result.records[0].get("s").properties;
+    } catch (err) {
+      console.log(err);
+      return null;
+    } finally {
+      session.close();
+    }
+  },
 };
