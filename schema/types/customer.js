@@ -14,20 +14,22 @@ const {
   updateCustomer,
   deleteCustomer,
 } = require("../resolvers/customer");
-const { ProductType } = require("./product");
 
 const CustomerType = new GraphQLObjectType({
   name: "Customer",
-  fields: () => ({
-    id: { type: GraphQLID },
-    name: { type: GraphQLString },
-    email: { type: GraphQLString },
-    image: { type: GraphQLString },
-    orders: {
-      type: new GraphQLList(ProductType),
-      resolve: getCustomerOrders,
-    },
-  }),
+  fields: () => {
+    const { OrderType } = require("./order");
+    return {
+      id: { type: GraphQLID },
+      name: { type: GraphQLString },
+      email: { type: GraphQLString },
+      image: { type: GraphQLString },
+      orders: {
+        type: new GraphQLList(OrderType),
+        resolve: getCustomerOrders,
+      },
+    };
+  },
 });
 
 const CustomerQuery = {

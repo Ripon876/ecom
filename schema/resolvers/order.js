@@ -8,8 +8,8 @@ module.exports = {
     try {
       const result = await session.run(
         `
-        MATCH (c:Customer)
-        WHERE c.id = "${order.customer}"
+        MATCH (c:Customer)-[o:Ordered] -> (p)
+        WHERE o.id = "${order.id}"
         RETURN c
         `
       );
@@ -33,8 +33,8 @@ module.exports = {
     try {
       const result = await session.run(
         `
-        MATCH (p:Product)
-        WHERE p.id = "${order.product}"
+        MATCH (c)-[o:Ordered] -> (p:Product)
+        WHERE o.id = "${order.id}"
         RETURN p
         `
       );
@@ -51,7 +51,25 @@ module.exports = {
     }
   },
   getOrders: async () => {
-    return null;
+    const session = driver.session();
+    try {
+      const result = await session.run(
+        `
+        MATCH (c) - [o:Ordered] -> (p:Product)
+        RETURN o
+        `
+      );
+      if (result.records.length === 0) {
+        return null;
+      }
+      const orders = result.records.map((record) => record.get("o").properties);
+      return orders;
+    } catch (err) {
+      console.log(err);
+      return null;
+    } finally {
+      session.close();
+    }
   },
   addOrder: async (_, args) => {
     console.log("-process started");

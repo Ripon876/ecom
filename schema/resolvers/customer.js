@@ -110,6 +110,7 @@ module.exports = {
         return null;
       }
       const orders = result.records.map((record) => record.get("o").properties);
+      
       return orders;
     } catch (err) {
       console.log(err);
