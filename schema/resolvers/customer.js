@@ -1,9 +1,11 @@
 const { driver } = require("../../db/db");
+const { nanoid } = require("nanoid");
 
 module.exports = {
   addCustomer: async (_, args) => {
     const session = driver.session();
     try {
+      args.id = nanoid();
       const props = Object.keys(args)
         .map((key) => `${key}: ${"$" + key}`)
         .join(", ");
@@ -32,7 +34,7 @@ module.exports = {
       const result = await session.run(
         `
           MATCH (c:Customer)
-          WHERE ID(c) = ${id}
+          WHERE c.id = "${id}"
           SET c += $props
           RETURN c
         `,
@@ -59,7 +61,7 @@ module.exports = {
       const result = await session.run(
         `
         MATCH (c:Customer)
-        WHERE ID(c) = ${id}
+        WHERE c.id = "${id}"
         DETACH DELETE c
         RETURN true as success
         `
@@ -97,7 +99,7 @@ module.exports = {
   getCustomerOrders: async (customer) => {
     const session = driver.session();
     try {
-      return [];
+      
     } catch (err) {
       console.log(err);
       return null;

@@ -19,6 +19,7 @@ const { ProductType } = require("./product");
 const CustomerType = new GraphQLObjectType({
   name: "Customer",
   fields: () => ({
+    id: { type: GraphQLID },
     name: { type: GraphQLString },
     email: { type: GraphQLString },
     image: { type: GraphQLString },
@@ -42,7 +43,7 @@ const CustomerMutation = {
     args: {
       name: { type: GraphQLString },
       email: { type: GraphQLString },
-      iamge: { type: GraphQLString },
+      image: { type: GraphQLString },
     },
     resolve: addCustomer,
   },
