@@ -23,6 +23,7 @@ const ProductType = new GraphQLObjectType({
   fields: () => {
     const { SellerType } = require("./seller");
     return {
+      id: { type: GraphQLID },
       title: { type: GraphQLString },
       image: { type: GraphQLString },
       price: { type: GraphQLFloat },

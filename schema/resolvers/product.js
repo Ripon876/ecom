@@ -1,5 +1,5 @@
-const { session } = require("neo4j-driver");
 const { driver } = require("../../db/db");
+const { nanoid } = require("nanoid");
 
 module.exports = {
   getProducts: async (parent) => {
@@ -21,9 +21,10 @@ module.exports = {
       session.close();
     }
   },
-  addProduct: async (parent, args) => {
+  addProduct: async (__, args) => {
     const session = driver.session();
     try {
+      args.id = nanoid();
       const props = Object.keys(args)
         .map((key) => `${key}: ${"$" + key}`)
         .join(", ");
