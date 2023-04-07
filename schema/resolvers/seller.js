@@ -25,7 +25,32 @@ module.exports = {
       session.close();
     }
   },
-  getSellerProducts: async (seller) => {},
+  getSellerProducts: async (seller) => {
+    const session = driver.session();
+
+    try {
+      const result = await session.run(
+        `
+          MATCH (p:Product)
+          WHERE p.seller = "${seller.id}"
+          RETURN p
+          `
+      );
+
+      if (result.records.length === 0) {
+        return null;
+      }
+      const products = result.records.map(
+        (record) => record.get("p").properties
+      );
+      return products;
+    } catch (err) {
+      console.log(err);
+      return null;
+    } finally {
+      session.close();
+    }
+  },
   addSeller: async (_, args) => {
     const session = driver.session();
     console.log("-process started");
