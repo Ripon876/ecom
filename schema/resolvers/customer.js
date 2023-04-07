@@ -99,7 +99,18 @@ module.exports = {
   getCustomerOrders: async (customer) => {
     const session = driver.session();
     try {
-      
+      const result = await session.run(
+        `
+        MATCH (c:Customer) - [o:Ordered] -> (p:Product)
+        WHERE c.id = "${customer.id}"
+        RETURN o
+        `
+      );
+      if (result.records.length === 0) {
+        return null;
+      }
+      const orders = result.records.map((record) => record.get("o").properties);
+      return orders;
     } catch (err) {
       console.log(err);
       return null;

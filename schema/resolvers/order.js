@@ -9,7 +9,7 @@ module.exports = {
       const result = await session.run(
         `
         MATCH (c:Customer)
-        WHERE ID(c) = ${order.customer}
+        WHERE c.id = "${order.customer}"
         RETURN c
         `
       );
@@ -34,7 +34,7 @@ module.exports = {
       const result = await session.run(
         `
         MATCH (p:Product)
-        WHERE ID(p) = ${order.product}
+        WHERE p.id = "${order.product}"
         RETURN p
         `
       );
@@ -58,20 +58,12 @@ module.exports = {
     const session = driver.session();
     try {
       const { customer, product } = args;
-      // const props = Object.keys(args)
-      // .map((key) => `${key}: ${"$" + key}`)
-      // .join(", ");
-
-      // const result = await session.run(
-      //   `CREATE (p:Product {${props}}) RETURN p`,
-      //   args
-      // );
 
       const result = await session.run(
         `
         MATCH (c:Customer), (p:Product)
-        WHERE ID(c) = ${customer} AND ID(p) = ${product}
-        CREATE (c)-[o:ORDERED {id: "${nanoid()}",paid: false,delivered: false}] -> (p)
+        WHERE c.id = "${customer}" AND p.id = "${product}"
+        CREATE (c)-[o:Ordered {id: "${nanoid()}",paid: false,delivered: false}] -> (p)
         RETURN o
         `
       );
