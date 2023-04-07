@@ -87,7 +87,7 @@ module.exports = {
       const result = await session.run(
         `
         MATCH (s:Seller)
-        WHERE ID(s) = ${id}
+        WHERE s.id = "${id}"
         SET s += $props
         RETURN s
         `,
@@ -113,7 +113,7 @@ module.exports = {
       const result = await session.run(
         `
         MATCH (s:Seller)
-        WHERE ID(s) = ${id}
+        WHERE s.id = "${id}"
         DETACH DELETE s
         RETURN true as success
         `
