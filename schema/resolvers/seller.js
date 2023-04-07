@@ -1,12 +1,36 @@
 const { driver } = require("../../db/db");
+const { nanoid } = require("nanoid");
 
 module.exports = {
-  getSellers: async () => {},
+  getSellers: async () => {
+    const session = driver.session();
+    try {
+      const result = await session.run(
+        `
+        MATCH (s:Seller)
+        RETURN s
+        `
+      );
+      if (result.records.length === 0) {
+        return null;
+      }
+      const sellers = result.records.map(
+        (record) => record.get("s").properties
+      );
+      return sellers;
+    } catch (err) {
+      console.log(err);
+      return null;
+    } finally {
+      session.close();
+    }
+  },
   getSellerProducts: async (seller) => {},
   addSeller: async (_, args) => {
     const session = driver.session();
     console.log("-process started");
     try {
+      args.id = nanoid();
       const props = Object.keys(args)
         .map((key) => `${key}: ${"$" + key}`)
         .join(", ");
