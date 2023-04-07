@@ -93,7 +93,7 @@ module.exports = {
       const result = await session.run(
         `
         MATCH (s:Seller)
-        WHERE ID(s) = ${product.seller}
+        WHERE s.id = "${product.seller}"
         RETURN s
         `
       );
